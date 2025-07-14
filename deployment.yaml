@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-get-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: http-get
+  template:
+    metadata:
+      labels:
+        app: http-get
+    spec:
+      containers:
+        - name: http-get-container
+          image: inubani/http_get:v1
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: http-get-config
